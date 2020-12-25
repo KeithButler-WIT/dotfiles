@@ -1,7 +1,20 @@
+# Vim/Neovim
 alias v="vim"
 alias nv="nvim"
 alias sv="sudo vim"
 alias snv="sudo nvim"
+
+# Ranger
+alias r="ranger"
+alias sr='sudo ranger'
+
+# Neomutt
+alias nm="neomutt"
+
+# Run command in background
+# alias bg="&/dev/null &"
+
+# Update
 alias fullupdate="sudo apt update; sudo apt upgrade -y"
 
 # Internet

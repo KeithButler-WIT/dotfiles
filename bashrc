@@ -116,6 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
 #!/bin/sh
 
 ##	+-----------------------------------+-----------------------------------+
@@ -347,166 +348,159 @@ bash_prompt() {
 	local PROMT_FORMAT=$BLUE_BOLD
 
 
-	############################################################################
-	## EXAMPLE CONFIGURATIONS                                                 ##
-	## I use them for different hosts. Test them out ;)                       ##
-	############################################################################
-
-	## CONFIGURATION: BLUE-WHITE
-	if [ "$HOSTNAME" = dell ]; then
-		FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLUE; TEXTEFFECT_1=$BOLD
-		FONT_COLOR_2=$WHITE; BACKGROUND_2=$L_BLUE; TEXTEFFECT_2=$BOLD
-		FONT_COLOR_3=$D_GRAY; BACKGROUND_3=$WHITE; TEXTEFFECT_3=$BOLD
-		PROMT_FORMAT=$CYAN_BOLD
-	fi
-
-	## CONFIGURATION: BLACK-RED
-	if [ "$HOSTNAME" = giraff6 ]; then
-		FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
-		FONT_COLOR_2=$WHITE; BACKGROUND_2=$D_GRAY; TEXTEFFECT_2=$BOLD
-		FONT_COLOR_3=$WHITE; BACKGROUND_3=$RED; TEXTEFFECT_3=$BOLD
-		PROMT_FORMAT=$RED_BOLD
-	fi
-
-	## CONFIGURATION: RED-BLACK
-	#FONT_COLOR_1=$WHITE; BACKGROUND_1=$RED; TEXTEFFECT_1=$BOLD
-	#FONT_COLOR_2=$WHITE; BACKGROUND_2=$D_GRAY; TEXTEFFECT_2=$BOLD
-	#FONT_COLOR_3=$WHITE; BACKGROUND_3=$BLACK; TEXTEFFECT_3=$BOLD
-	#PROMT_FORMAT=$RED_BOLD
-
-	## CONFIGURATION: CYAN-BLUE
-	if [ "$HOSTNAME" = sharkoon ]; then
-		FONT_COLOR_1=$BLACK; BACKGROUND_1=$L_CYAN; TEXTEFFECT_1=$BOLD
-		FONT_COLOR_2=$WHITE; BACKGROUND_2=$L_BLUE; TEXTEFFECT_2=$BOLD
-		FONT_COLOR_3=$WHITE; BACKGROUND_3=$BLUE; TEXTEFFECT_3=$BOLD
-		PROMT_FORMAT=$CYAN_BOLD
-	fi
-
-	## CONFIGURATION: GRAY-SCALE
-	if [ "$HOSTNAME" = giraff ]; then
-		FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
-		FONT_COLOR_2=$WHITE; BACKGROUND_2=$D_GRAY; TEXTEFFECT_2=$BOLD
-		FONT_COLOR_3=$WHITE; BACKGROUND_3=$L_GRAY; TEXTEFFECT_3=$BOLD
-		PROMT_FORMAT=$BLACK_BOLD
-	fi
-
-	## CONFIGURATION: GRAY-CYAN
-	if [ "$HOSTNAME" = light ]; then
-		FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
-		FONT_COLOR_2=$WHITE; BACKGROUND_2=$D_GRAY; TEXTEFFECT_2=$BOLD
-		FONT_COLOR_3=$BLACK; BACKGROUND_3=$L_CYAN; TEXTEFFECT_3=$BOLD
-		PROMT_FORMAT=$CYAN_BOLD
-	fi
+    ## CONFIGURATION: GRAY-SCALE
+    if [ "$HOSTNAME" = dell ]; then
+        FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
+        FONT_COLOR_2=$WHITE; BACKGROUND_2=$D_GRAY; TEXTEFFECT_2=$BOLD
+        FONT_COLOR_3=$BLACK; BACKGROUND_3=$L_GRAY; TEXTEFFECT_3=$BOLD
+        PROMT_FORMAT=$WHITE_BOLD
+    fi
 
 
-	##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##
-	  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##
-	##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##
+    ## CONFIGURATION: GREEN-BLACK
+    if [ "$HOSTNAME" = giraff6 ]; then
+        FONT_COLOR_1=$BLACK; BACKGROUND_1=$L_GREEN; TEXTEFFECT_1=$BOLD
+        FONT_COLOR_2=$BLACK; BACKGROUND_2=$GREEN; TEXTEFFECT_2=$BOLD
+        FONT_COLOR_3=$WHITE; BACKGROUND_3=$BLACK; TEXTEFFECT_3=$BOLD
+        PROMT_FORMAT=$WHITE_BOLD
+    fi
+
+    ## CONFIGURATION: BLACK-GREEN
+    if [ "$HOSTNAME" = giraff6 ]; then
+        FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
+        FONT_COLOR_2=$BLACK; BACKGROUND_2=$GREEN; TEXTEFFECT_2=$BOLD
+        FONT_COLOR_3=$BLACK; BACKGROUND_3=$L_GREEN; TEXTEFFECT_3=$BOLD
+        PROMT_FORMAT=$WHITE_BOLD
+    fi
+
+    ## CONFIGURATION: MAGENTA-BLACK
+    if [ "$HOSTNAME" = sharkoon ]; then
+        FONT_COLOR_1=$WHITE; BACKGROUND_1=$L_MAGENTA; TEXTEFFECT_1=$BOLD
+        FONT_COLOR_2=$WHITE; BACKGROUND_2=$MAGENTA; TEXTEFFECT_2=$BOLD
+        FONT_COLOR_3=$WHITE; BACKGROUND_3=$BLACK; TEXTEFFECT_3=$BOLD
+        PROMT_FORMAT=$CYAN_BOLD
+    fi
+
+
+    ## CONFIGURATION: BLACK-MAGENTA
+    # if [ "$HOSTNAME" = sharkoon ]; then
+    FONT_COLOR_1=$WHITE; BACKGROUND_1=$BLACK; TEXTEFFECT_1=$BOLD
+    FONT_COLOR_2=$WHITE; BACKGROUND_2=$MAGENTA; TEXTEFFECT_2=$BOLD
+    FONT_COLOR_3=$BLACK; BACKGROUND_3=$L_MAGENTA; TEXTEFFECT_3=$BOLD
+    PROMT_FORMAT=$WHITE_BOLD
+    # fi
 
 
 
 
-	############################################################################
-	## TEXT FORMATING                                                         ##
-	## Generate the text formating according to configuration                 ##
-	############################################################################
-
-	## CONVERT CODES: add offset
-	FC1=$(($FONT_COLOR_1+$COLOR))
-	BG1=$(($BACKGROUND_1+$BG))
-	FE1=$(($TEXTEFFECT_1+$EFFECT))
-
-	FC2=$(($FONT_COLOR_2+$COLOR))
-	BG2=$(($BACKGROUND_2+$BG))
-	FE2=$(($TEXTEFFECT_2+$EFFECT))
-
-	FC3=$(($FONT_COLOR_3+$COLOR))
-	BG3=$(($BACKGROUND_3+$BG))
-	FE3=$(($TEXTEFFECT_3+$EFFECT))
-
-	FC4=$(($FONT_COLOR_4+$COLOR))
-	BG4=$(($BACKGROUND_4+$BG))
-	FE4=$(($TEXTEFFECT_4+$EFFECT))
-
-
-	## CALL FORMATING HELPER FUNCTION: effect + font color + BG color
-	local TEXT_FORMAT_1
-	local TEXT_FORMAT_2
-	local TEXT_FORMAT_3
-	local TEXT_FORMAT_4
-	format_font TEXT_FORMAT_1 $FE1 $FC1 $BG1
-	format_font TEXT_FORMAT_2 $FE2 $FC2 $BG2
-	format_font TEXT_FORMAT_3 $FC3 $FE3 $BG3
-	format_font TEXT_FORMAT_4 $FC4 $FE4 $BG4
-
-
-	# GENERATE PROMT SECTIONS
-	local PROMT_USER=$"$TEXT_FORMAT_1 \u "
-	local PROMT_HOST=$"$TEXT_FORMAT_2 \h "
-	local PROMT_PWD=$"$TEXT_FORMAT_3 \${NEW_PWD} "
-	local PROMT_INPUT=$"$PROMT_FORMAT "
-
-
-	############################################################################
-	## SEPARATOR FORMATING                                                    ##
-	## Generate the separators between sections                               ##
-	## Uses background colors of the sections                                 ##
-	############################################################################
-
-	## CONVERT CODES
-	TSFC1=$(($BACKGROUND_1+$COLOR))
-	TSBG1=$(($BACKGROUND_2+$BG))
-
-	TSFC2=$(($BACKGROUND_2+$COLOR))
-	TSBG2=$(($BACKGROUND_3+$BG))
-
-	TSFC3=$(($BACKGROUND_3+$COLOR))
-	TSBG3=$(($DEFAULT+$BG))
-
-
-	## CALL FORMATING HELPER FUNCTION: effect + font color + BG color
-	local SEPARATOR_FORMAT_1
-	local SEPARATOR_FORMAT_2
-	local SEPARATOR_FORMAT_3
-	format_font SEPARATOR_FORMAT_1 $TSFC1 $TSBG1
-	format_font SEPARATOR_FORMAT_2 $TSFC2 $TSBG2
-	format_font SEPARATOR_FORMAT_3 $TSFC3 $TSBG3
-
-
-	# GENERATE SEPARATORS WITH FANCY TRIANGLE
-	local TRIANGLE=$'\uE0B0'
-	local SEPARATOR_1=$SEPARATOR_FORMAT_1$TRIANGLE
-	local SEPARATOR_2=$SEPARATOR_FORMAT_2$TRIANGLE
-	local SEPARATOR_3=$SEPARATOR_FORMAT_3$TRIANGLE
+    ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##
+    ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##
+    ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##  ##
 
 
 
-	############################################################################
-	## WINDOW TITLE                                                           ##
-	## Prevent messed up terminal-window titles                               ##
-	############################################################################
-	case $TERM in
-	xterm*|rxvt*)
-		local TITLEBAR='\[\033]0;\u:${NEW_PWD}\007\]'
-		;;
-	*)
-		local TITLEBAR=""
-		;;
-	esac
+
+    ############################################################################
+    ## TEXT FORMATING                                                         ##
+    ## Generate the text formating according to configuration                 ##
+    ############################################################################
+
+    ## CONVERT CODES: add offset
+    FC1=$(($FONT_COLOR_1+$COLOR))
+    BG1=$(($BACKGROUND_1+$BG))
+    FE1=$(($TEXTEFFECT_1+$EFFECT))
+
+    FC2=$(($FONT_COLOR_2+$COLOR))
+    BG2=$(($BACKGROUND_2+$BG))
+    FE2=$(($TEXTEFFECT_2+$EFFECT))
+
+    FC3=$(($FONT_COLOR_3+$COLOR))
+    BG3=$(($BACKGROUND_3+$BG))
+    FE3=$(($TEXTEFFECT_3+$EFFECT))
+
+    FC4=$(($FONT_COLOR_4+$COLOR))
+    BG4=$(($BACKGROUND_4+$BG))
+    FE4=$(($TEXTEFFECT_4+$EFFECT))
+
+
+    ## CALL FORMATING HELPER FUNCTION: effect + font color + BG color
+    local TEXT_FORMAT_1
+    local TEXT_FORMAT_2
+    local TEXT_FORMAT_3
+    local TEXT_FORMAT_4
+    format_font TEXT_FORMAT_1 $FE1 $FC1 $BG1
+    format_font TEXT_FORMAT_2 $FE2 $FC2 $BG2
+    format_font TEXT_FORMAT_3 $FC3 $FE3 $BG3
+    format_font TEXT_FORMAT_4 $FC4 $FE4 $BG4
+
+
+    # GENERATE PROMT SECTIONS
+    local PROMT_USER=$"$TEXT_FORMAT_1 \u "
+    local PROMT_HOST=$"$TEXT_FORMAT_2 \h "
+    local PROMT_PWD=$"$TEXT_FORMAT_3 \${NEW_PWD} "
+    local PROMT_INPUT=$"$PROMT_FORMAT "
+
+
+    ############################################################################
+    ## SEPARATOR FORMATING                                                    ##
+    ## Generate the separators between sections                               ##
+    ## Uses background colors of the sections                                 ##
+    ############################################################################
+
+    ## CONVERT CODES
+    TSFC1=$(($BACKGROUND_1+$COLOR))
+    TSBG1=$(($BACKGROUND_2+$BG))
+
+    TSFC2=$(($BACKGROUND_2+$COLOR))
+    TSBG2=$(($BACKGROUND_3+$BG))
+
+    TSFC3=$(($BACKGROUND_3+$COLOR))
+    TSBG3=$(($DEFAULT+$BG))
+
+
+    ## CALL FORMATING HELPER FUNCTION: effect + font color + BG color
+    local SEPARATOR_FORMAT_1
+    local SEPARATOR_FORMAT_2
+    local SEPARATOR_FORMAT_3
+    format_font SEPARATOR_FORMAT_1 $TSFC1 $TSBG1
+    format_font SEPARATOR_FORMAT_2 $TSFC2 $TSBG2
+    format_font SEPARATOR_FORMAT_3 $TSFC3 $TSBG3
+
+
+    # GENERATE SEPARATORS WITH FANCY TRIANGLE
+    local TRIANGLE=$'\uE0B0'
+    local SEPARATOR_1=$SEPARATOR_FORMAT_1$TRIANGLE
+    local SEPARATOR_2=$SEPARATOR_FORMAT_2$TRIANGLE
+    local SEPARATOR_3=$SEPARATOR_FORMAT_3$TRIANGLE
 
 
 
-	############################################################################
-	## BASH PROMT                                                             ##
-	## Generate promt and remove format from the rest                         ##
-	############################################################################
-	PS1="$TITLEBAR\n${PROMT_USER}${SEPARATOR_1}${PROMT_HOST}${SEPARATOR_2}${PROMT_PWD}${SEPARATOR_3}${PROMT_INPUT}"
+    ############################################################################
+    ## WINDOW TITLE                                                           ##
+    ## Prevent messed up terminal-window titles                               ##
+    ############################################################################
+    case $TERM in
+        xterm*|rxvt*)
+            local TITLEBAR='\[\033]0;\u:${NEW_PWD}\007\]'
+            ;;
+        *)
+            local TITLEBAR=""
+            ;;
+    esac
 
 
 
-	## For terminal line coloring, leaving the rest standard
-	none="$(tput sgr0)"
-	trap 'echo -ne "${none}"' DEBUG
+    ############################################################################
+    ## BASH PROMT                                                             ##
+    ## Generate promt and remove format from the rest                         ##
+    ############################################################################
+    PS1="$TITLEBAR\n${PROMT_USER}${SEPARATOR_1}${PROMT_HOST}${SEPARATOR_2}${PROMT_PWD}${SEPARATOR_3}${PROMT_INPUT}"
+
+
+
+    ## For terminal line coloring, leaving the rest standard
+    none="$(tput sgr0)"
+    trap 'echo -ne "${none}"' DEBUG
 }
 
 
@@ -596,7 +590,11 @@ nc="${reset}${bold}${cyan}"         # user and hostname
 ic="${reset}"                       # info
 c0="${reset}${cyan}"                # first color
 
-## OUTPUT
+set editing-mode vi
+set keymap vi
+set show-mode-in-prompt on
+set vi-ins-mode-string "+"
+set cmd-mode-string ":"
 
 cat <<EOF
 ${c0}  ______

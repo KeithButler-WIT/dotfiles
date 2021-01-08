@@ -3,7 +3,6 @@ alias \
     h="history" \
     myip="curl ipinfo.io/ip" \
     untar="tar -zxvf" \
-    lm="ls --human-readable --size -1 S --classify" \
     cl="clear" \
     cp="cp -iv" \
     mv="mv -iv" \
